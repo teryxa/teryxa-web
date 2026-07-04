@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teryxa — We test your app so users don't.</title>
+  <meta name="description" content="Teryxa s.r.o. is a boutique QA and test-automation studio. E2E automation, API testing, performance testing and exploratory testing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238dff60' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>" />
+
+  <style>
+  /* ============ Teryxa — Modern SaaS / Bento ============ */
+  :root {
+    --bg: #0a0f0d;
+    --bg-soft: #0f1613;
+    --panel: #121a16;
+    --panel-2: #16211c;
+    --line: rgba(141, 255, 96, 0.12);
+    --line-soft: rgba(255, 255, 255, 0.07);
+    --text: #eef3ef;
+    --muted: #9db1a6;
+    --accent: #8dff60;
+    --accent-dim: #5fd93c;
+    --accent-glow: rgba(141, 255, 96, 0.25);
+    --radius: 18px;
+    --font-body: "Space Grotesk", system-ui, -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(141, 255, 96, 0.07), transparent 60%),
+      radial-gradient(900px 500px at -10% 30%, rgba(141, 255, 96, 0.05), transparent 60%),
+      var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  em { color: var(--muted); font-style: italic; }
+
+  /* ============ Nav ============ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.9rem clamp(1rem, 5vw, 3rem);
+    background: rgba(10, 15, 13, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .nav__logo {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .nav__logo-mark { color: var(--accent); }
+
+  .nav__links {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: auto;
+  }
+  .nav__links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  .nav__links a:hover { color: var(--accent); }
+
+  .lang-toggle {
+    display: flex;
+    border: 1px solid var(--line-soft);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.35rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-toggle button.active {
+    background: var(--accent);
+    color: #08130b;
+    font-weight: 600;
+  }
+
+  /* ============ Hero ============ */
+  .hero {
+    position: relative;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 3rem) 4rem;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .hero__glow {
+    position: absolute;
+    top: 10%;
+    right: -5%;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .hero__title {
+    font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+  .hero__title em { color: #b8c9be; }
+
+  .hero__terminal {
+    font-family: var(--font-mono);
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    margin-top: 1.2rem;
+    white-space: nowrap;
+  }
+  .hero__terminal .prompt { color: var(--text); }
+  .hero__terminal .cmd {
+    color: var(--accent);
+    background: rgba(141, 255, 96, 0.1);
+    padding: 0.1em 0.35em;
+    border-radius: 6px;
+    text-shadow: 0 0 18px var(--accent-glow);
+  }
+  .cursor { color: var(--accent); animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero__sub {
+    margin-top: 1.8rem;
+    max-width: 58ch;
+    color: var(--muted);
+    font-size: clamp(1rem, 2vw, 1.1rem);
+  }
+
+  .hero__cta { display: flex; gap: 1rem; margin-top: 2.2rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+  }
+  .btn--primary {
+    background: var(--accent);
+    color: #08130b;
+    box-shadow: 0 0 24px var(--accent-glow);
+  }
+  .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px var(--accent-glow); }
+  .btn--ghost {
+    border: 1px solid var(--line);
+    color: var(--text);
+  }
+  .btn--ghost:hover { border-color: var(--accent-dim); color: var(--accent); }
+
+  /* ============ Hero visual (ambient bug hunt) ============ */
+  .hero__visual {
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    aspect-ratio: 1 / 1;
+    justify-self: center;
+  }
+
+  .orbit {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    border: 1px solid rgba(255, 255, 255, 0.055);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .orbit--1 { width: 28%; height: 28%; }
+  .orbit--2 { width: 52%; height: 52%; border-color: rgba(141, 255, 96, 0.09); }
+  .orbit--3 { width: 76%; height: 76%; }
+  .orbit--4 { width: 100%; height: 100%; border-color: rgba(255, 255, 255, 0.04); }
+
+  .ficon {
+    position: absolute;
+    width: clamp(26px, 4vw, 38px);
+    color: rgba(214, 231, 219, 0.35);
+    will-change: transform;
+    transition: opacity 0.7s ease, filter 0.7s ease;
+  }
+  .ficon--bug { color: rgba(214, 231, 219, 0.5); }
+  .ficon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    animation: floaty 7s ease-in-out infinite;
+  }
+  /* stagger the idle float so icons don't move in lockstep */
+  .ficon:nth-child(odd) svg { animation-duration: 8.5s; animation-delay: -3s; }
+  .ficon:nth-child(3n) svg { animation-duration: 6s; animation-delay: -1.5s; }
+  .ficon:nth-child(4n) svg { animation-duration: 9.5s; animation-delay: -5s; }
+
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-9px) rotate(5deg); }
+  }
+
+  .ficon.zapped {
+    opacity: 0;
+    filter: blur(4px);
+  }
+
+  .magnifier {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: clamp(52px, 7vw, 74px);
+    color: var(--accent);
+    opacity: 0.9;
+    filter: drop-shadow(0 0 16px var(--accent-glow));
+    z-index: 3;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .magnifier svg { width: 100%; height: 100%; display: block; }
+
+  /* ============ Sections shared ============ */
+  .eyebrow {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: -0.02em;
+    margin-top: 0.5rem;
+  }
+  .section-sub {
+    color: var(--muted);
+    max-width: 62ch;
+    margin-top: 1rem;
+  }
+
+  /* ============ Bento ============ */
+  .services {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem clamp(1rem, 5vw, 3rem);
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+    margin-top: 2.5rem;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .card:hover {
+    border-color: rgba(141, 255, 96, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
+  .card--wide { grid-column: span 2; }
+  .card--feature {
+    background: linear-gradient(135deg, var(--panel-2), var(--panel) 60%);
+  }
+
+  .card__tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .card h3 { font-size: 1.35rem; letter-spacing: -0.01em; }
+  .card > p { color: var(--muted); margin-top: 0.5rem; font-size: 0.95rem; }
+  .card ul { list-style: none; margin-top: 1rem; display: grid; gap: 0.6rem; }
+  .card li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding-left: 1.3rem;
+    position: relative;
+  }
+  .card li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .card li b { color: var(--text); font-weight: 600; }
+
+  .card--stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.4rem;
+    background: linear-gradient(160deg, rgba(141, 255, 96, 0.10), var(--panel) 65%);
+  }
+  .card--stat-alt { background: linear-gradient(340deg, rgba(141, 255, 96, 0.10), var(--panel) 65%); }
+  .card--stat .stat {
+    font-family: var(--font-mono);
+    font-size: 3.2rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+    text-shadow: 0 0 30px var(--accent-glow);
+  }
+  .card--stat p { color: var(--muted); font-size: 0.9rem; }
+
+  .stack-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+  .stack-strip span {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    border: 1px solid var(--line-soft);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+  }
+
+  /* ============ Workflow ============ */
+  .workflow {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem clamp(1rem, 5vw, 3rem);
+  }
+  .workflow__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+    margin-top: 2.5rem;
+  }
+  .phase {
+    background: var(--panel);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    position: relative;
+  }
+  .phase__num {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: #08130b;
+    background: var(--accent);
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .phase h3 { font-size: 1.15rem; }
+  .phase p { color: var(--muted); font-size: 0.92rem; margin-top: 0.5rem; }
+  .phase__value { border-top: 1px dashed var(--line-soft); margin-top: 1rem; padding-top: 0.8rem; }
+  .phase__value span:first-child { color: var(--accent); font-weight: 600; }
+
+  /* ============ Contact ============ */
+  .contact {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem clamp(1rem, 5vw, 3rem) 6rem;
+  }
+  .contact__card {
+    text-align: center;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) * 1.4);
+    padding: clamp(2.5rem, 7vw, 5rem) 2rem;
+    background:
+      radial-gradient(600px 300px at 50% 0%, rgba(141, 255, 96, 0.08), transparent 70%),
+      var(--panel);
+  }
+  .contact__card h2 {
+    font-size: clamp(1.7rem, 5vw, 2.8rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .contact__card > p {
+    color: var(--muted);
+    max-width: 52ch;
+    margin: 1.2rem auto 0;
+  }
+
+  .contact__email { margin-top: 2rem; }
+  .contact__email a {
+    font-family: var(--font-mono);
+    font-size: clamp(1.05rem, 3vw, 1.5rem);
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(141, 255, 96, 0.3);
+    border-radius: 999px;
+    padding: 0.7rem 1.6rem;
+    display: inline-block;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 0 rgba(141, 255, 96, 0);
+  }
+  .contact__email a:hover {
+    background: rgba(141, 255, 96, 0.1);
+    box-shadow: 0 0 30px var(--accent-glow);
+    transform: translateY(-2px);
+    letter-spacing: 0.03em;
+  }
+  .contact__note {
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ============ Footer ============ */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem clamp(1rem, 5vw, 3rem);
+    border-top: 1px solid var(--line-soft);
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+  }
+
+  /* ============ Responsive ============ */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding-bottom: 2rem;
+    }
+    .hero__visual { max-width: 420px; margin-top: 1rem; }
+    .bento, .workflow__grid { grid-template-columns: 1fr 1fr; }
+    .card--wide { grid-column: span 2; }
+  }
+
+  @media (max-width: 640px) {
+    .nav { gap: 1rem; }
+    .nav__links { display: none; }
+    .lang-toggle { margin-left: auto; }
+    .bento, .workflow__grid { grid-template-columns: 1fr; }
+    .card--wide { grid-column: span 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .cursor { animation: none; }
+    .ficon svg { animation: none; }
+    * { transition: none !important; }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <a class="nav__logo" href="#top">
+      <span class="nav__logo-mark">&gt;_</span> teryxa
+    </a>
+    <nav class="nav__links">
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#workflow" data-i18n="nav.workflow">How we work</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="en" class="active">EN</button>
+      <button type="button" data-lang="sk">SK</button>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <main id="top">
+    <section class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+
+      <div class="hero__text">
+        <h1 class="hero__title" data-i18n-html="hero.title">We test your app<br />so users <em>don’t.</em></h1>
+        <p class="hero__terminal"><span class="prompt">&gt;</span> <span class="cmd" id="tech-word">playwright</span><span class="cursor" aria-hidden="true">▌</span></p>
+        <p class="hero__sub" data-i18n="hero.sub">Teryxa s.r.o. is a boutique QA and test-automation studio. We build the pipelines, frameworks and load models that let engineering teams ship on Friday afternoon — and sleep on Friday night.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#contact" data-i18n="hero.cta1">Book a QA audit</a>
+          <a class="btn btn--ghost" href="#services" data-i18n="hero.cta2">Explore services</a>
+        </div>
+      </div>
+
+      <!-- Ambient visual: light line icons drifting around orbits.
+           The magnifier sweeps on its own (or follows the mouse) and
+           bugs it catches quietly fade away, then respawn. -->
+      <div class="hero__visual" id="hero-visual" aria-hidden="true">
+        <div class="orbit orbit--1"></div>
+        <div class="orbit orbit--2"></div>
+        <div class="orbit orbit--3"></div>
+        <div class="orbit orbit--4"></div>
+
+        <span class="ficon ficon--bug" data-speed="0.50" style="left:8%; top:10%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M6.34 17.66 4 20"/><path d="M17.47 9c1.93-.2 3.53-1.9 3.53-4"/><path d="M22 13h-4"/><path d="m19.66 17.66 2.34 2.34"/></svg>
+        </span>
+        <span class="ficon ficon--bug" data-speed="0.35" style="left:76%; top:16%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M6.34 17.66 4 20"/><path d="M17.47 9c1.93-.2 3.53-1.9 3.53-4"/><path d="M22 13h-4"/><path d="m19.66 17.66 2.34 2.34"/></svg>
+        </span>
+        <span class="ficon ficon--bug" data-speed="0.45" style="left:28%; top:40%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M6.34 17.66 4 20"/><path d="M17.47 9c1.93-.2 3.53-1.9 3.53-4"/><path d="M22 13h-4"/><path d="m19.66 17.66 2.34 2.34"/></svg>
+        </span>
+        <span class="ficon ficon--bug" data-speed="0.55" style="left:62%; top:58%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M6.34 17.66 4 20"/><path d="M17.47 9c1.93-.2 3.53-1.9 3.53-4"/><path d="M22 13h-4"/><path d="m19.66 17.66 2.34 2.34"/></svg>
+        </span>
+        <span class="ficon ficon--bug" data-speed="0.40" style="left:14%; top:74%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M6.34 17.66 4 20"/><path d="M17.47 9c1.93-.2 3.53-1.9 3.53-4"/><path d="M22 13h-4"/><path d="m19.66 17.66 2.34 2.34"/></svg>
+        </span>
+
+        <span class="ficon" data-speed="0.30" style="left:47%; top:47%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </span>
+        <span class="ficon" data-speed="0.28" style="left:88%; top:42%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
+        </span>
+        <span class="ficon" data-speed="0.34" style="left:4%; top:44%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg>
+        </span>
+        <span class="ficon" data-speed="0.26" style="left:42%; top:86%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <span class="ficon" data-speed="0.24" style="left:68%; top:3%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </span>
+        <span class="ficon" data-speed="0.32" style="left:36%; top:6%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+        </span>
+        <span class="ficon" data-speed="0.36" style="left:84%; top:76%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg>
+        </span>
+
+        <span class="magnifier" id="magnifier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </span>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICES / BENTO ===================== -->
+    <section class="services" id="services">
+      <p class="eyebrow" data-i18n="svc.eyebrow">Our services</p>
+      <h2 class="section-title" data-i18n-html="svc.title">Quality engineering, <em>amplified.</em></h2>
+      <p class="section-sub" data-i18n="svc.sub">We don’t just tick boxes. We embed modern QA directly into your development lifecycle, ensuring your team ships fast, resilient code with absolute confidence.</p>
+
+      <div class="bento">
+        <!-- E2E — large card -->
+        <article class="card card--wide card--feature">
+          <div class="card__tag">01 · Playwright / Cypress / CI-CD</div>
+          <h3 data-i18n="svc.e2e.title">End-to-End Automation</h3>
+          <p data-i18n="svc.e2e.lead">Flaky tests kill velocity. We build deterministic UI automation suites that developers actually trust.</p>
+          <ul>
+            <li><b data-i18n="svc.e2e.b1t">User-centric journeys.</b> <span data-i18n="svc.e2e.b1">We map and automate critical user paths from login to checkout, mirroring real human behaviour.</span></li>
+            <li><b data-i18n="svc.e2e.b2t">Cross-browser resilience.</b> <span data-i18n="svc.e2e.b2">One script to rule them all — bulletproof testing across Chromium, WebKit and Firefox.</span></li>
+            <li><b data-i18n="svc.e2e.b3t">Zero-flake infrastructure.</b> <span data-i18n="svc.e2e.b3">We eliminate false positives with smart waiting, dynamic selectors and clean state resets.</span></li>
+          </ul>
+        </article>
+
+        <!-- API -->
+        <article class="card">
+          <div class="card__tag">02 · Contract testing / Microservices</div>
+          <h3 data-i18n="svc.api.title">API &amp; Integration Testing</h3>
+          <p data-i18n="svc.api.lead">Validating the invisible strings that hold your architecture together.</p>
+          <ul>
+            <li><b data-i18n="svc.api.b1t">Shift-left validation.</b> <span data-i18n="svc.api.b1">We test and mock your endpoints before the front-end is even built, catching logic flaws early.</span></li>
+            <li><b data-i18n="svc.api.b2t">Breaking-change protection.</b> <span data-i18n="svc.api.b2">Automated contract testing so microservices communicate flawlessly, without surprise regressions.</span></li>
+            <li><b data-i18n="svc.api.b3t">Payload &amp; security checks.</b> <span data-i18n="svc.api.b3">Rigorous boundary testing, schema validation and authorization checks on every route.</span></li>
+          </ul>
+        </article>
+
+        <!-- Performance -->
+        <article class="card">
+          <div class="card__tag">03 · k6 / Distributed cloud execution</div>
+          <h3 data-i18n="svc.perf.title">Performance &amp; Load Testing</h3>
+          <p data-i18n="svc.perf.lead">We break your system in staging so your users can’t break it in production.</p>
+          <ul>
+            <li><b data-i18n="svc.perf.b1t">Realistic load profiling.</b> <span data-i18n="svc.perf.b1">Steady-state traffic, sudden spikes (Black Friday events) and prolonged soak tests.</span></li>
+            <li><b data-i18n="svc.perf.b2t">Bottleneck identification.</b> <span data-i18n="svc.perf.b2">Pinpointing database deadlocks, memory leaks and unoptimized cloud resources.</span></li>
+            <li><b data-i18n="svc.perf.b3t">ROI-driven metrics.</b> <span data-i18n="svc.perf.b3">Better Core Web Vitals — and a smaller AWS/Azure bill at the same time.</span></li>
+          </ul>
+        </article>
+
+        <!-- Exploratory — wide -->
+        <article class="card card--wide">
+          <div class="card__tag">04 · Edge cases / UX flow / Security intuition</div>
+          <h3 data-i18n="svc.exp.title">High-Cognitive Exploratory Testing</h3>
+          <p data-i18n="svc.exp.lead">Automation catches regressions; our exploratory testing catches the unexpected.</p>
+          <ul>
+            <li><b data-i18n="svc.exp.b1t">Beyond the script.</b> <span data-i18n="svc.exp.b1">We step outside the user stories to uncover the edge cases, race conditions and logical flaws that scripts pass right over.</span></li>
+            <li><b data-i18n="svc.exp.b2t">Creative destruction.</b> <span data-i18n="svc.exp.b2">Thinking like a malicious hacker, a distracted customer and a veteran engineer — all at once.</span></li>
+            <li><b data-i18n="svc.exp.b3t">Rapid feedback loops.</b> <span data-i18n="svc.exp.b3">Actionable, rich-media bug reports with clear reproduction steps, network logs and console output.</span></li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="stack-strip" aria-label="Tooling">
+        <span>Playwright</span><span>Cypress</span><span>k6</span><span>GitHub</span><span>GitLab</span><span>Postman</span><span>Grafana</span>
+      </div>
+    </section>
+
+    <!-- ===================== WORKFLOW ===================== -->
+    <section class="workflow" id="workflow">
+      <p class="eyebrow" data-i18n="wf.eyebrow">How we work</p>
+      <h2 class="section-title" data-i18n="wf.title">How we embed into your workflow</h2>
+
+      <div class="workflow__grid">
+        <article class="phase">
+          <div class="phase__num">1</div>
+          <h3 data-i18n="wf.p1.title">Audit &amp; Strategy</h3>
+          <p data-i18n="wf.p1.what">We assess your current test debt and stack.</p>
+          <p class="phase__value"><span data-i18n="wf.value">Your value:</span> <span data-i18n="wf.p1.value">a clear roadmap, zero guesswork.</span></p>
+        </article>
+        <article class="phase">
+          <div class="phase__num">2</div>
+          <h3 data-i18n="wf.p2.title">Pipeline Integration</h3>
+          <p data-i18n="wf.p2.what">We hook Playwright, k6 and API tests into GitHub Actions or GitLab CI.</p>
+          <p class="phase__value"><span data-i18n="wf.value">Your value:</span> <span data-i18n="wf.p2.value">green builds mean safe deploys.</span></p>
+        </article>
+        <article class="phase">
+          <div class="phase__num">3</div>
+          <h3 data-i18n="wf.p3.title">Continuous Evolution</h3>
+          <p data-i18n="wf.p3.what">Regular exploratory sweeps and suite maintenance.</p>
+          <p class="phase__value"><span data-i18n="wf.value">Your value:</span> <span data-i18n="wf.p3.value">test suites that grow with your product, never obsolete.</span></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="contact" id="contact">
+      <div class="contact__card">
+        <h2 data-i18n-html="ct.title">Ready to ship on Friday<br /><em>and sleep on Friday night?</em></h2>
+        <p data-i18n="ct.sub">Tell us about your stack, your release pain and your wildest flaky test. We’ll reply with a concrete plan — not a sales deck.</p>
+        <!-- email is assembled by JavaScript to keep it away from spam bots -->
+        <p class="contact__email" id="email-slot" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year">2026</span> Teryxa s.r.o.</span>
+    <span data-i18n="ft.tag">We test your app so users don’t.</span>
+  </footer>
+
+  <script>
+  /* ============ Teryxa — page scripts ============ */
+  (function () {
+    "use strict";
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ---------- 1. i18n (EN / SK) ---------- */
+    const I18N = {
+      en: {
+        "nav.services": "Services",
+        "nav.workflow": "How we work",
+        "nav.contact": "Contact",
+
+        "hero.title": "We test your app<br />so users <em>don’t.</em>",
+        "hero.sub": "Teryxa s.r.o. is a boutique QA and test-automation studio. We build the pipelines, frameworks and load models that let engineering teams ship on Friday afternoon — and sleep on Friday night.",
+        "hero.cta1": "Book a QA audit",
+        "hero.cta2": "Explore services",
+
+        "svc.eyebrow": "Our services",
+        "svc.title": "Quality engineering, <em>amplified.</em>",
+        "svc.sub": "We don’t just tick boxes. We embed modern QA directly into your development lifecycle, ensuring your team ships fast, resilient code with absolute confidence.",
+
+        "svc.e2e.title": "End-to-End Automation",
+        "svc.e2e.lead": "Flaky tests kill velocity. We build deterministic UI automation suites that developers actually trust.",
+        "svc.e2e.b1t": "User-centric journeys.",
+        "svc.e2e.b1": "We map and automate critical user paths from login to checkout, mirroring real human behaviour.",
+        "svc.e2e.b2t": "Cross-browser resilience.",
+        "svc.e2e.b2": "One script to rule them all — bulletproof testing across Chromium, WebKit and Firefox.",
+        "svc.e2e.b3t": "Zero-flake infrastructure.",
+        "svc.e2e.b3": "We eliminate false positives with smart waiting, dynamic selectors and clean state resets.",
+
+        "svc.api.title": "API & Integration Testing",
+        "svc.api.lead": "Validating the invisible strings that hold your architecture together.",
+        "svc.api.b1t": "Shift-left validation.",
+        "svc.api.b1": "We test and mock your endpoints before the front-end is even built, catching logic flaws early.",
+        "svc.api.b2t": "Breaking-change protection.",
+        "svc.api.b2": "Automated contract testing so microservices communicate flawlessly, without surprise regressions.",
+        "svc.api.b3t": "Payload & security checks.",
+        "svc.api.b3": "Rigorous boundary testing, schema validation and authorization checks on every route.",
+
+        "svc.perf.title": "Performance & Load Testing",
+        "svc.perf.lead": "We break your system in staging so your users can’t break it in production.",
+        "svc.perf.b1t": "Realistic load profiling.",
+        "svc.perf.b1": "Steady-state traffic, sudden spikes (Black Friday events) and prolonged soak tests.",
+        "svc.perf.b2t": "Bottleneck identification.",
+        "svc.perf.b2": "Pinpointing database deadlocks, memory leaks and unoptimized cloud resources.",
+        "svc.perf.b3t": "ROI-driven metrics.",
+        "svc.perf.b3": "Better Core Web Vitals — and a smaller AWS/Azure bill at the same time.",
+
+        "svc.exp.title": "High-Cognitive Exploratory Testing",
+        "svc.exp.lead": "Automation catches regressions; our exploratory testing catches the unexpected.",
+        "svc.exp.b1t": "Beyond the script.",
+        "svc.exp.b1": "We step outside the user stories to uncover the edge cases, race conditions and logical flaws that scripts pass right over.",
+        "svc.exp.b2t": "Creative destruction.",
+        "svc.exp.b2": "Thinking like a malicious hacker, a distracted customer and a veteran engineer — all at once.",
+        "svc.exp.b3t": "Rapid feedback loops.",
+        "svc.exp.b3": "Actionable, rich-media bug reports with clear reproduction steps, network logs and console output.",
+
+        "wf.eyebrow": "How we work",
+        "wf.title": "How we embed into your workflow",
+        "wf.value": "Your value:",
+        "wf.p1.title": "Audit & Strategy",
+        "wf.p1.what": "We assess your current test debt and stack.",
+        "wf.p1.value": "a clear roadmap, zero guesswork.",
+        "wf.p2.title": "Pipeline Integration",
+        "wf.p2.what": "We hook Playwright, k6 and API tests into GitHub Actions or GitLab CI.",
+        "wf.p2.value": "green builds mean safe deploys.",
+        "wf.p3.title": "Continuous Evolution",
+        "wf.p3.what": "Regular exploratory sweeps and suite maintenance.",
+        "wf.p3.value": "test suites that grow with your product, never obsolete.",
+
+        "ct.title": "Ready to ship on Friday<br /><em>and sleep on Friday night?</em>",
+        "ct.sub": "Tell us about your stack, your release pain and your wildest flaky test. We’ll reply with a concrete plan — not a sales deck.",
+
+        "ft.tag": "We test your app so users don’t."
+      },
+
+      sk: {
+        "nav.services": "Služby",
+        "nav.workflow": "Ako pracujeme",
+        "nav.contact": "Kontakt",
+
+        "hero.title": "My testujeme vašu appku,<br />aby ju <em>nemuseli</em> testovať používatelia.",
+        "hero.sub": "Teryxa s.r.o. je butikové štúdio pre QA a testovaciu automatizáciu. Staviame pipeliny, frameworky a záťažové modely, vďaka ktorým môžu vývojárske tímy nasadzovať v piatok poobede — a v piatok v noci pokojne spať.",
+        "hero.cta1": "Objednať QA audit",
+        "hero.cta2": "Pozrieť služby",
+
+        "svc.eyebrow": "Naše služby",
+        "svc.title": "Quality engineering <em>na plný výkon.</em>",
+        "svc.sub": "Neodškrtávame len políčka. Moderné QA zabudujeme priamo do vášho vývojového cyklu, aby váš tím dodával rýchly a odolný kód s absolútnou istotou.",
+
+        "svc.e2e.title": "End-to-End automatizácia",
+        "svc.e2e.lead": "Nestabilné testy zabíjajú rýchlosť. Staviame deterministické UI testovacie sady, ktorým vývojári naozaj veria.",
+        "svc.e2e.b1t": "Cesty reálnych používateľov.",
+        "svc.e2e.b1": "Mapujeme a automatizujeme kritické používateľské cesty od prihlásenia po checkout, presne ako reálny človek.",
+        "svc.e2e.b2t": "Odolnosť naprieč prehliadačmi.",
+        "svc.e2e.b2": "Jeden skript vládne všetkým — nepriestrelné testovanie v Chromiu, WebKite aj Firefoxe.",
+        "svc.e2e.b3t": "Infraštruktúra bez flaky testov.",
+        "svc.e2e.b3": "Falošné poplachy eliminujeme inteligentným čakaním, dynamickými selektormi a čistým resetom stavu.",
+
+        "svc.api.title": "API a integračné testovanie",
+        "svc.api.lead": "Kontrolujeme neviditeľné nitky, ktoré držia vašu architektúru pokope.",
+        "svc.api.b1t": "Shift-left validácia.",
+        "svc.api.b1": "Endpointy testujeme a mockujeme ešte pred vznikom front-endu — logické chyby chytáme skoro.",
+        "svc.api.b2t": "Ochrana pred breaking changes.",
+        "svc.api.b2": "Automatizované kontraktové testy, aby mikroslužby komunikovali bezchybne a bez nečakaných regresií.",
+        "svc.api.b3t": "Kontrola payloadov a bezpečnosti.",
+        "svc.api.b3": "Dôsledné hraničné testy, validácia schém a kontrola autorizácie na každej route.",
+
+        "svc.perf.title": "Výkonnostné a záťažové testy",
+        "svc.perf.lead": "Váš systém rozbijeme na stagingu, aby ho používatelia nerozbili v produkcii.",
+        "svc.perf.b1t": "Realistické záťažové profily.",
+        "svc.perf.b1": "Bežná prevádzka, náhle špičky (Black Friday) aj dlhé soak testy.",
+        "svc.perf.b2t": "Identifikácia úzkych hrdiel.",
+        "svc.perf.b2": "Odhalíme deadlocky v databáze, memory leaky aj neoptimalizované cloudové zdroje.",
+        "svc.perf.b3t": "Metriky s reálnym prínosom.",
+        "svc.perf.b3": "Lepšie Core Web Vitals — a zároveň nižší účet za AWS/Azure.",
+
+        "svc.exp.title": "Exploračné testovanie",
+        "svc.exp.lead": "Automatizácia chytá regresie; naše exploračné testovanie chytá to nečakané.",
+        "svc.exp.b1t": "Za hranicou skriptu.",
+        "svc.exp.b1": "Vykročíme mimo user stories a odhalíme hraničné prípady, race conditions a logické chyby, ktoré skripty prehliadnu.",
+        "svc.exp.b2t": "Kreatívna deštrukcia.",
+        "svc.exp.b2": "Myslíme ako útočník, roztržitý zákazník aj skúsený inžinier — naraz.",
+        "svc.exp.b3t": "Rýchla spätná väzba.",
+        "svc.exp.b3": "Akčné bug reporty s jasnými krokmi reprodukcie, network logmi a výstupom z konzoly.",
+
+        "wf.eyebrow": "Ako pracujeme",
+        "wf.title": "Ako sa začleníme do vášho workflow",
+        "wf.value": "Váš prínos:",
+        "wf.p1.title": "Audit a stratégia",
+        "wf.p1.what": "Zhodnotíme váš aktuálny testovací dlh a technologický stack.",
+        "wf.p1.value": "jasná roadmapa, žiadne hádanie.",
+        "wf.p2.title": "Integrácia do pipeline",
+        "wf.p2.what": "Playwright, k6 a API testy napojíme na GitHub Actions alebo GitLab CI.",
+        "wf.p2.value": "zelený build znamená bezpečný deploy.",
+        "wf.p3.title": "Priebežná evolúcia",
+        "wf.p3.what": "Pravidelné exploračné kolá a údržba testovacích sád.",
+        "wf.p3.value": "testy rastú s vaším produktom a nikdy nezastarajú.",
+
+        "ct.title": "Chcete nasadzovať v piatok<br /><em>a v piatok v noci spať?</em>",
+        "ct.sub": "Napíšte nám o vašom stacku, release bolestiach a najdivokejšom flaky teste. Odpovieme konkrétnym plánom — nie predajnou prezentáciou.",
+
+        "ft.tag": "My testujeme vašu appku, aby ju nemuseli testovať používatelia."
+      }
+    };
+
+    function setLang(lang) {
+      const dict = I18N[lang] || I18N.en;
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) el.textContent = dict[key];
+      });
+      document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+        const key = el.getAttribute("data-i18n-html");
+        if (dict[key]) el.innerHTML = dict[key];
+      });
+      document.querySelectorAll(".lang-toggle button").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+      try { localStorage.setItem("teryxa-lang", lang); } catch (e) { /* private mode */ }
+    }
+
+    document.querySelectorAll(".lang-toggle button").forEach((btn) => {
+      btn.addEventListener("click", () => setLang(btn.dataset.lang));
+    });
+
+    const savedLang = (() => {
+      try { return localStorage.getItem("teryxa-lang"); } catch (e) { return null; }
+    })();
+    if (savedLang && I18N[savedLang]) setLang(savedLang);
+
+    /* ---------- 2. Obfuscated e-mail (assembled at runtime) ---------- */
+    // The address never appears in the source as one string, so simple
+    // scrapers harvesting "user@domain" patterns come up empty.
+    (function buildEmail() {
+      const user = ["ter", "yxa", "sro"].join("");
+      const host = ["gma", "il"].join("");
+      const tld = "com";
+      const at = String.fromCharCode(64); // "@"
+      const address = user + at + host + "." + tld;
+
+      const slot = document.getElementById("email-slot");
+      if (!slot) return;
+      const a = document.createElement("a");
+      a.href = "mai" + "lto:" + address;
+      a.textContent = address;
+      a.rel = "nofollow";
+      slot.appendChild(a);
+    })();
+
+    /* ---------- 3. Rotating tech word in the hero terminal ---------- */
+    (function techRotator() {
+      const el = document.getElementById("tech-word");
+      if (!el) return;
+      const words = ["playwright", "cypress", "k6", "postman", "selenium", "grafana"];
+      let index = 0;
+
+      if (reducedMotion) {
+        setInterval(() => {
+          index = (index + 1) % words.length;
+          el.textContent = words[index];
+        }, 3000);
+        return;
+      }
+
+      function type(word, done) {
+        let i = 0;
+        (function step() {
+          el.textContent = word.slice(0, ++i);
+          if (i < word.length) setTimeout(step, 75);
+          else done();
+        })();
+      }
+
+      function erase(done) {
+        (function step() {
+          const t = el.textContent;
+          if (t.length) {
+            el.textContent = t.slice(0, -1);
+            setTimeout(step, 40);
+          } else done();
+        })();
+      }
+
+      (function cycle() {
+        setTimeout(() => {
+          erase(() => {
+            index = (index + 1) % words.length;
+            type(words[index], cycle);
+          });
+        }, 3000);
+      })();
+    })();
+
+    /* ---------- 4. Ambient hero visual (parallax + magnifier) ---------- */
+    (function heroVisual() {
+      const visual = document.getElementById("hero-visual");
+      const magnifier = document.getElementById("magnifier");
+      if (!visual || !magnifier) return;
+
+      const icons = Array.from(visual.querySelectorAll(".ficon"));
+      const bugs = icons.filter((el) => el.classList.contains("ficon--bug"));
+
+      /* gentle scroll parallax on the floating icons */
+      function parallax() {
+        const y = window.scrollY;
+        icons.forEach((icon) => {
+          const speed = parseFloat(icon.dataset.speed) || 0.3;
+          icon.style.transform = "translateY(" + (-y * speed * 0.25) + "px)";
+        });
+      }
+      window.addEventListener("scroll", parallax, { passive: true });
+      parallax();
+
+      if (reducedMotion) {
+        // park the magnifier on the outer orbit, no animation loop
+        magnifier.style.transform = "translate(70%, 20%)";
+        return;
+      }
+
+      /* magnifier: slow autonomous sweep, or follows the mouse */
+      let mouse = null;
+      const pos = { x: 0, y: 0 };
+      let settled = false;
+
+      visual.addEventListener("mousemove", (e) => {
+        const rect = visual.getBoundingClientRect();
+        const half = magnifier.offsetWidth / 2;
+        mouse = { x: e.clientX - rect.left - half, y: e.clientY - rect.top - half };
+      });
+      visual.addEventListener("mouseleave", () => { mouse = null; });
+
+      function target(ts) {
+        if (mouse) return mouse;
+        const w = visual.clientWidth;
+        const h = visual.clientHeight;
+        const half = magnifier.offsetWidth / 2;
+        // slow Lissajous sweep around the orbits
+        return {
+          x: w / 2 + Math.sin(ts * 0.00042) * w * 0.36 - half,
+          y: h / 2 + Math.sin(ts * 0.00069 + 1.3) * h * 0.34 - half
+        };
+      }
+
+      function checkCollisions() {
+        const mag = magnifier.getBoundingClientRect();
+        // hit-box = the lens (upper-left circle of the search icon)
+        const lens = {
+          left: mag.left,
+          right: mag.left + mag.width * 0.7,
+          top: mag.top,
+          bottom: mag.top + mag.height * 0.7
+        };
+        bugs.forEach((bug) => {
+          if (bug.classList.contains("zapped")) return;
+          const b = bug.getBoundingClientRect();
+          const hit =
+            lens.left < b.right && lens.right > b.left &&
+            lens.top < b.bottom && lens.bottom > b.top;
+          if (hit) {
+            bug.classList.add("zapped");
+            // quietly respawn later so the ambient effect keeps living
+            setTimeout(() => bug.classList.remove("zapped"), 7000);
+          }
+        });
+      }
+
+      function frame(ts) {
+        const rect = visual.getBoundingClientRect();
+        const onScreen = rect.bottom > 0 && rect.top < window.innerHeight;
+        if (onScreen) {
+          const t = target(ts);
+          if (!settled) { pos.x = t.x; pos.y = t.y; settled = true; }
+          pos.x += (t.x - pos.x) * 0.05;
+          pos.y += (t.y - pos.y) * 0.05;
+          magnifier.style.transform = "translate(" + pos.x + "px, " + pos.y + "px)";
+          checkCollisions();
+        }
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })();
+
+    /* ---------- 5. Footer year ---------- */
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  })();
+  </script>
+</body>
+</html>
